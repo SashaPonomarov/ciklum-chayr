@@ -23,6 +23,7 @@ db.once('open', function() {
   })
 
   app.use('/api/seats', require('./routes/seats'));
+  app.use('/api/users', require('./routes/users'));
 
   app.use(express.static(__dirname + '/public'));
 

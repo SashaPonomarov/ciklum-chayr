@@ -2,6 +2,30 @@ const express = require('express');
 const User = require('../models/User.model');
 const router = express.Router();
 
+router.route('/search')
+  //search for users by name or email
+  .get(function(req, res) {
+    if (!req.query.s) {
+      return res.status(400).json({status: "error", error: "Missing search query"});
+    }
+    
+    var re = new RegExp(req.query.s, 'i');
+    User.aggregate([
+      {$project: { fullName : { $concat : [ "$name", " ", "$lastName" ] },
+                    seatId: 1,
+                    name: 1,
+                    lastName: 1,
+                    email: 1,
+                    userId: "$_id",
+                    _id: 0
+       }},
+      {$match: {$or: [ {fullName: { $regex: re }}, {email: { $regex: re }}] }}
+    ]).exec(function(err, users){
+      res.json({status: "success", data: users});
+    });
+
+  })
+
 router.route('/')
   //read the list of all users
   .get(function(req, res) {
@@ -38,5 +62,7 @@ router.route('/:userId')
       res.json({status: "success", data: {user: user}});
     })
   })
+
+
 
 module.exports = router;
