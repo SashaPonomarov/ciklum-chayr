@@ -22,6 +22,8 @@ db.once('open', function() {
     console.log('listening on', port);
   })
 
+  app.use('/api/seats', require('./routes/seats'));
+
   app.use(express.static(__dirname + '/public'));
 
 });
