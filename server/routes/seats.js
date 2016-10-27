@@ -26,7 +26,36 @@ router.route('/')
     })
   })
 
-
-
+router.route('/:seatId')
+  //read a specific seat
+  .get(function(req, res) {
+    Seat.findById(req.params.seatId, function(err, seat) {
+      if (err) {
+        return res.status(500).json({status: "error", error: err});
+      }
+      if (!seat) {
+        res.status(404);
+      }
+      res.json({status: "success", data: {seat: seat}});
+    })
+  })
+  //update a specific seat
+  .put(function(req, res) {
+    Seat.findByIdAndUpdate(req.params.seatId, req.body, {new: true}, function(err, seat) {
+      if (err) {
+        return res.status(500).json({status: "error", error: err});
+      }
+      res.json({status: "success", data: {seat: seat}});
+    })
+  })
+  //delete a specific seat
+  .delete(function(req, res) {
+    Seat.findByIdAndRemove(req.params.seatId, function(err, seat) {
+      if (err) {
+        return res.status(500).json({status: "error", error: err});
+      }
+      res.json({status: "success", data: {seat: seat}});
+    })
+  })
 
 module.exports = router;
