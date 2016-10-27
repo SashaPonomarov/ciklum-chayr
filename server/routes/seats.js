@@ -41,7 +41,10 @@ router.route('/:seatId')
   })
   //update a specific seat
   .put(function(req, res) {
-    Seat.findByIdAndUpdate(req.params.seatId, req.body, {new: true}, function(err, seat) {
+    if (!req.body.seat) {
+      return res.status(400).json({status: "error", error: "Missing new seat data"});
+    }
+    Seat.findByIdAndUpdate(req.params.seatId, req.body.seat, {new: true}, function(err, seat) {
       if (err) {
         return res.status(500).json({status: "error", error: err});
       }
