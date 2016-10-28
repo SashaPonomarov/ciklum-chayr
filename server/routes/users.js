@@ -8,8 +8,12 @@ router.route('/search')
     if (!req.query.s) {
       return res.status(400).json({status: "error", error: "Missing search query"});
     }
-    
     var re = new RegExp(req.query.s, 'i');
+    var conditions = [{$or: [ {fullName: { $regex: re }}, 
+                              {email: { $regex: re }}] 
+                      }];
+    if (req.query.noSeat) { conditions.push({seatId: null}); }
+    
     User.aggregate([
       {$project: { fullName : { $concat : [ "$name", " ", "$lastName" ] },
                     seatId: 1,
@@ -19,11 +23,11 @@ router.route('/search')
                     userId: "$_id",
                     _id: 0
        }},
-      {$match: {$or: [ {fullName: { $regex: re }}, {email: { $regex: re }}] }}
-    ]).exec(function(err, users){
+      {$match: {$and: conditions}}
+    ])
+    .exec(function(err, users){
       res.json({status: "success", data: users});
     });
-
   })
 
 router.route('/')
@@ -62,7 +66,5 @@ router.route('/:userId')
       res.json({status: "success", data: {user: user}});
     })
   })
-
-
 
 module.exports = router;
