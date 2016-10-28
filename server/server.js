@@ -22,6 +22,7 @@ db.once('open', function() {
     console.log('listening on', port);
   })
 
+  app.use('/api/auth', require('./routes/auth'));
   app.use('/api/seats', require('./routes/seats'));
   app.use('/api/users', require('./routes/users'));
 
