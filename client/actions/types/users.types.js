@@ -1,0 +1,5 @@
+export default {
+    LIST_USERS: 'LIST_USERS',
+    RECEIVE_USERS: 'RECEIVE_USERS',
+    SEARCH: 'SEARCH'
+};
