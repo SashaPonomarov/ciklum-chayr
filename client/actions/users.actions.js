@@ -7,6 +7,18 @@ export const receiveUsers = (json) => ({
     users: json.data.users
 });
 
+export const selectUser = () => ({
+    type: usersTypes.SELECT_USEER,
+});
+
+export const userSearchFocus = () => ({
+    type: usersTypes.SHOW_LIST,
+});
+
+export const userSearchBlur = () => ({
+    type: usersTypes.HIDE_LIST,
+});
+
 export const listUsers = () => {
   return dispatch => {
     return fetch(apiURL)
@@ -20,7 +32,7 @@ export const listUsers = () => {
 
 export const searchUsers = (query) => {
   return dispatch => {
-    return fetch(`${apiURL}/search?s=${query}`)
+    return fetch(`${apiURL}/search?s=${query.input}${query.filter ? '&noSeat=1' : ''}`)
       .then(response => response.json())
       .then(json => {
         console.log('success', json)
