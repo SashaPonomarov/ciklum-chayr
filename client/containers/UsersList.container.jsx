@@ -21,7 +21,7 @@ class UsersList extends Component {
             return (<li key={user.userId}>{user.name} {user.lastName}</li>)
         })
         return (
-            <ul>{userLIs}</ul>
+            <ul className='users-list'>{userLIs}</ul>
         );
     }
 }

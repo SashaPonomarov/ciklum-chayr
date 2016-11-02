@@ -1,17 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router';
 import AppBar from 'material-ui/AppBar';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
 
-const style = {
-        margin: 5,
-    }
+import UsersSearchContainer from '../containers/UsersSearch.container.jsx';
 
 const Header = () => (
     <AppBar 
         title="Chayr" 
         showMenuIconButton={false} 
+        iconElementRight={
+            <div>
+              <UsersSearchContainer />
+            </div>
+            }
     />
 );
 

@@ -26,7 +26,7 @@ router.route('/search')
       {$match: {$and: conditions}}
     ])
     .exec(function(err, users){
-      res.json({status: "success", data: users});
+      res.json({status: "success", data: {users: users}});
     });
   })
 
