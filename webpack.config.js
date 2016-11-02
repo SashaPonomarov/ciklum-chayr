@@ -5,6 +5,7 @@ const path = require('path');
 module.exports = {
     entry: [
         './client/app.js',
+        './client/stylesheets/main.scss'
     ],
     devServer: {
         inline: true,
@@ -18,9 +19,8 @@ module.exports = {
     },
     module: {
         loaders: [
-            { test: /\.css$/, loader: ExtractTextPlugin.extract("style", "style!css" )},
-            { test: /\.(sass|scss)/, loader: ExtractTextPlugin.extract("style", "style!css?sourceMap!resolve-url!sass?sourceMap")},
-
+            { test: /\.css$/, loader: 'style!css' },
+            { test: /\.(sass|scss)/, loader: ExtractTextPlugin.extract("css?sourceMap!sass?sourceMap")},
             { test: /\.gif$/, loader: 'url?limit=16000&mimetype=image/gif' },
             { test: /\.jpg$/, loader: 'url?limit=50000&mimetype=image/jpg' },
             { test: /\.png$/, loader: 'url?limit=16000&mimetype=image/png' },
