@@ -1,3 +1,8 @@
 export default {
     OPEN_LOGIN: 'OPEN_LOGIN',
+    CLOSE_LOGIN: 'CLOSE_LOGIN',
+    CHECK_AUTH: 'CHECK_AUTH',
+    CLEAR_AUTH: 'CLEAR_AUTH',
+    SET_AUTH: 'SET_AUTH',
+    AUTH_ERROR: 'AUTH_ERROR',
 };

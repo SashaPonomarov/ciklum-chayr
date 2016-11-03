@@ -1,34 +1,50 @@
 import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import Paper from 'material-ui/Paper';
 
 
 class LoginForm extends Component {
   constructor(props) {
     super(props);
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {
+      username: '',
+      password: ''
+    };
+  }
+  handleChange(event) {
+    let name = event.target.name;
+    this.setState({[name]: event.target.value});
   }
   handleSubmit(event) {
-    if (event) {event.preventDefault();}
+    event.preventDefault();
     let query = {
+      username: this.state.username,
+      password: this.state.password
+    };
+    if (query.username && query.password) {
+      this.props.submitAuth(query);
     }
   }
   render() {
+    let { error } = this.props;
+    let errorMsg = error ? <p>{error}</p> : '';
     return (
-      <Paper className="log-in-form">
         <form onSubmit={this.handleSubmit}>
           <TextField 
             name="username"
             floatingLabelText="Username" 
+            onChange={this.handleChange} 
           />
           <TextField 
             name="password"
             floatingLabelText="Password" 
+            onChange={this.handleChange} 
           />
           <RaisedButton type="submit" label="Submit" primary={true} />
+          {errorMsg}
         </form>
-      </Paper>
     )
   }
 }
