@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 
-// import UsersList from './UsersList.jsx';
+import LoginForm from './LoginForm.jsx';
 
 class Account extends Component {
   constructor(props) {
@@ -9,10 +9,20 @@ class Account extends Component {
   }
 
   render() {
-    const {isAuth} = this.props;
+    const {isAuth, showLoginForm, onLoginOpen} = this.props;
+    let buttons, form;
+    if (isAuth) {
+      buttons = (<RaisedButton label="Log out" />)
+    } else {
+      buttons = (<RaisedButton label="Log in" onClick={onLoginOpen} />)
+    }
+    if (showLoginForm) {
+      form = (<LoginForm />)
+    }
     return (
       <div className="account">
-        <RaisedButton label="Log in" />
+        {buttons}
+        {form}
       </div>
     )
   }
