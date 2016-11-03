@@ -16,9 +16,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownPorps) => ({
     ...ownPorps,
     onSearch: (query) => dispatch(searchUsers(query)),
-    onUserSelect: (query) => dispatch(selectUser()),
-    onSearchFocus: (query) => dispatch(userSearchFocus()),
-    onSearchBlur: (query) => dispatch(userSearchBlur()),
+    onUserSelect: () => dispatch(selectUser()),
+    onSearchFocus: () => dispatch(userSearchFocus()),
+    onSearchBlur: () => dispatch(userSearchBlur()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersSearch);
