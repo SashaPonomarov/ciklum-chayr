@@ -1,4 +1,0 @@
-export default {
-    RECEIVE_ITEMS: 'RECEIVE_ITEMS',
-    REQUEST_ITEMS: 'REQUEST_ITEMS',
-};

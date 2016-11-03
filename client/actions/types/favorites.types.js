@@ -1,4 +1,0 @@
-export default {
-    FAVORITE_ADD: 'FAVORITE_ADD',
-    FAVORITE_REMOVE: 'FAVORITE_REMOVE'
-};
