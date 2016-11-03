@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
-import {orange500} from 'material-ui/styles/colors';
 
 import UsersList from './UsersList.jsx';
 
@@ -45,8 +44,7 @@ class UsersSearch extends Component {
     const styles = {
       label: {color: '#ffffff'},
       underline: {borderColor: '#ffffff'},
-      checkbox: {display: 'inline-block', width: 'initial', marginLeft: 40},
-      checkboxLabel: {whiteSpace: 'nowrap'},
+      checkbox: {display: 'inline-block', width: 'initial', alignItems: 'center'},
       checkboxIcon: {fill: '#ffffff'}
     };
     return (
@@ -54,6 +52,7 @@ class UsersSearch extends Component {
           <TextField
             name="searchInput" 
             ref="searchInput" 
+            autoComplete="off" 
             hintText="Enter name, last name or email"
             floatingLabelText="Search users" 
             inputStyle={styles.label} 
@@ -68,10 +67,11 @@ class UsersSearch extends Component {
           <RaisedButton type="submit" label="Search" />
           <Checkbox 
             name="searchFilter" 
+            className='users-search-checkbox' 
             label="Without seat" 
             onCheck={this.handleCheck} 
             style={styles.checkbox} 
-            labelStyle={{...styles.label, ...styles.checkboxLabel}} 
+            labelStyle={{...styles.label, alignItems: 'center'}} 
             iconStyle={styles.checkboxIcon}
           />
           {users.length > 0 && showUsersList && <UsersList users={users} onUserSelect={onUserSelect} />}
