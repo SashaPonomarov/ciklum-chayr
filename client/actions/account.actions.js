@@ -32,7 +32,7 @@ export const authError = (json) => ({
 export const requestAuthStatus = () => {
   return dispatch => {
     return fetch(apiURL, {
-      credentials: 'include'
+      credentials: 'same-origin'
     })
       .then(response => response.json())
       .then(json => {
@@ -47,7 +47,7 @@ export const logIn = (data) => {
   return dispatch => {
     return fetch(apiURL, {
       method: 'POST',
-      credentials: 'include',
+      credentials: 'same-origin',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -71,7 +71,7 @@ export const logIn = (data) => {
 export const logOut = () => {
   return dispatch => {
     return fetch(`${apiURL}/logout`, {
-      credentials: 'include'
+      credentials: 'same-origin'
     })
       .then(response => response.json())
       .then(json => {

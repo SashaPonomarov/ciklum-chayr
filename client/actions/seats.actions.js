@@ -43,7 +43,7 @@ export const newSeat = () => {
   return dispatch => {
     return fetch(apiURL, {
       method: 'POST',
-      credentials: 'include'
+      credentials: 'same-origin'
     })
       .then(response => response.json())
       .then(json => {
@@ -64,7 +64,7 @@ export const saveSeat = (data) => {
   return dispatch => {
     return fetch(`${apiURL}/${data.seatId}`, {
       method: 'PUT',
-      credentials: 'include',
+      credentials: 'same-origin',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'

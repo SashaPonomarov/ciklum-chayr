@@ -38,7 +38,9 @@ class SeatDetailsForm extends Component {
   }
   handleSave() {
     let query = {
-      seat: {seatTitle: this.state.seatTitle},
+      body: {
+        seat: {seatTitle: this.state.seatTitle}
+      },
       seatId: this.props.seat.seatId
     }
     this.props.saveSeat(query);
@@ -62,7 +64,7 @@ class SeatDetailsForm extends Component {
           (<FlatButton 
             label={this.state.seatTitle || "No title"} 
             labelStyle={flatBtnStyle} 
-            onClick={this.handleClick.bind(this, "seatTitle", seat.seatTitle)}
+            onClick={this.handleClick.bind(this, "seatTitle", this.state.seatTitle)}
           />))
     return (
           <form className="seat-details-form">
