@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, IndexRedirect } from 'react-router';
 
 import App from '../containers/App.jsx';
-import Main from '../components/Main.page.jsx';
+import Main from '../containers/Main.container.jsx';
 
 export default (
     <Route path="/" component={App}>

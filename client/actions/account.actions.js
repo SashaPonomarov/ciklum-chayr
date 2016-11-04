@@ -44,7 +44,6 @@ export const requestAuthStatus = () => {
 }
 
 export const logIn = (data) => {
-  console.log('data', JSON.stringify(data))
   return dispatch => {
     return fetch(apiURL, {
       method: 'POST',

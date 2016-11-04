@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import Account from '../components/Account.jsx';
 import { openLogin, closeLogin, requestAuthStatus, logIn, logOut } from '../actions/account.actions';
+import { newSeat } from '../actions/seats.actions';
 
 
 const mapStateToProps = (state) => {
@@ -20,7 +21,8 @@ const mapDispatchToProps = (dispatch, ownPorps) => ({
     onLoginClose: () => dispatch(closeLogin()),
     checkAuth: () => dispatch(requestAuthStatus()),
     submitAuth: (data) => dispatch(logIn(data)),
-    onLogout: (data) => dispatch(logOut(data))
+    onLogout: (data) => dispatch(logOut(data)),
+    onNewSeat: () => dispatch(newSeat()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Account);

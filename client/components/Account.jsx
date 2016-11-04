@@ -14,10 +14,10 @@ class Account extends Component {
   }
 
   render() {
-    const {showLoginForm = false, isAuth, error, onLoginOpen, onLoginClose, submitAuth, onLogout} = this.props;
+    const {showLoginForm, isAuth, error, onLoginOpen, onLoginClose, submitAuth, onLogout, onNewSeat} = this.props;
     const loginBtn = (<RaisedButton label="Log in" onClick={onLoginOpen} key="login" />);
     const logoutBtn = (<RaisedButton label="Log out" onClick={onLogout} key="logout" />);
-    const newSeatBtn = (<RaisedButton secondary={true} label="New seat" key="newseat" />);
+    const newSeatBtn = (<RaisedButton secondary={true} label="New seat" onClick={onNewSeat} key="newseat" />);
     const buttons = (
         <div className="account-buttons">
           {isAuth ? [newSeatBtn] : ''}
@@ -32,7 +32,7 @@ class Account extends Component {
           className="log-in-form"
           title="Type your credentials"
           modal={false}
-          open={showLoginForm}
+          open={showLoginForm || false}
           onRequestClose={onLoginClose}
           contentStyle={{width: 350}}
         >
