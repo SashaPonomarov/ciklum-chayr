@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import SeatDetails from '../components/SeatDetails.jsx';
-import { closeSeatDetails } from '../actions/seats.actions';
+import { closeSeatDetails, saveSeat } from '../actions/seats.actions';
 
 
 const mapStateToProps = (state) => {
@@ -14,6 +14,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownPorps) => ({
     ...ownPorps,
     onClose: () => dispatch(closeSeatDetails()),
+    saveSeat: (query) => dispatch(saveSeat(query)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SeatDetails);

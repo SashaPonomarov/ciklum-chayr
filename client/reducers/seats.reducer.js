@@ -12,6 +12,18 @@ export default (state = {}, action) => {
                 seats: [...state.seats, action.seat]
             })
 
+        case seatsTypes.UPDATE_SEAT:
+            let index = state.seats.findIndex((seat) => {
+                return seat.seatId === action.seat.seatId;
+            })
+            return Object.assign({}, state, {
+                seats: [
+                    ...state.seats.slice(0, index),
+                    action.seat,
+                    ...state.seats.slice(index + 1),
+                ]
+            })
+
         case seatsTypes.OPEN_SEAT_DETAILS:
             let currentSeat = state.seats.find((seat) => {
                 return seat.seatId === action.seatId;

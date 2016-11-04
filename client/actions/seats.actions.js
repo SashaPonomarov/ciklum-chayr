@@ -12,6 +12,11 @@ export const addSeat = (seat) => ({
     seat: seat
 });
 
+export const updateSeat = (seat) => ({
+    type: seatsTypes.UPDATE_SEAT,
+    seat: seat
+});
+
 export const openSeatDetails = (seatId) => ({
     type: seatsTypes.OPEN_SEAT_DETAILS,
     seatId: seatId
@@ -44,6 +49,32 @@ export const newSeat = () => {
       .then(json => {
           if (json.status === 'success' && json.data && json.data.seat) {
             return dispatch(addSeat(json.data.seat));
+          }
+          if (json.status === 'error' && json.error) {
+            console.log(json.error);
+          }
+        }
+      ).catch(err => console.log(err))
+  }
+}
+
+export const saveSeat = (data) => {
+  console.log(data)
+  if (!data.seatId) {return;}
+  return dispatch => {
+    return fetch(`${apiURL}/${data.seatId}`, {
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data.body)
+    })
+      .then(response => response.json())
+      .then(json => {
+          if (json.status === 'success' && json.data && json.data.seat) {
+            return dispatch(updateSeat(json.data.seat));
           }
           if (json.status === 'error' && json.error) {
             console.log(json.error);
