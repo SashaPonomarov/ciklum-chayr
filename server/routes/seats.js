@@ -14,10 +14,12 @@ router.route('/')
   })
   //create a new seat
   .post(function(req, res) {
-    if (!req.body.seat) {
-      return res.status(400).json({status: "error", error: "Missing new seat data"});
-    }
-    var seat = new Seat(req.body.seat);
+    var emptySeat = {
+      seatTitle: "No title",
+      status: "free",
+      coordinates: {x: "0", y: "0"}
+    };
+    var seat = new Seat(req.body.seat || emptySeat);
     seat.save(function(err, seat) {
       if (err) {
         return res.status(500).json({status: "error", error: err});
