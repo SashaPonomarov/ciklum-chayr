@@ -17,6 +17,10 @@ export const openSeatDetails = (seatId) => ({
     seatId: seatId
 });
 
+export const closeSeatDetails = () => ({
+    type: seatsTypes.CLOSE_SEAT_DETAILS,
+});
+
 export const getSeats = () => {
   return dispatch => {
     return fetch(apiURL)

@@ -1,6 +1,22 @@
 .seat-details {
   width: 400px;
+  height: 300px;
   position: absolute;
   top: 100px;
   right: 100px;
+  vertical-align: top;
+}
+.seat-details-form {
+  width: 280px;
+  display: inline-block;
+  td {
+    padding: 10px;
+  }
+}
+.seat-details-content {
+  padding: 30px;
+}
+.seat-details-icon {
+  transform: rotate(90deg);
+  margin-bottom: 40px;
 }

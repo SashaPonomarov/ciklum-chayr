@@ -21,6 +21,13 @@ export default (state = {}, action) => {
                 showSeatDetails: true
             })
 
+        case seatsTypes.CLOSE_SEAT_DETAILS:
+            return Object.assign({}, state, {
+                currentSeat: '',
+                showSeatDetails: false
+            })
+
+
         default:
             return state;
     }

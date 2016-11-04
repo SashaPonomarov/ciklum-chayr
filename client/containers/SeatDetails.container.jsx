@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import SeatDetails from '../components/SeatDetails.jsx';
-// import { openSeatDetails } from '../actions/seats.actions';
+import { closeSeatDetails } from '../actions/seats.actions';
 
 
 const mapStateToProps = (state) => {
@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownPorps) => ({
     ...ownPorps,
-    // onSeatClick: (seatId) => dispatch(openSeatDetails(seatId)),
+    onClose: () => dispatch(closeSeatDetails()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SeatDetails);

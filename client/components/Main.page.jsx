@@ -1,12 +1,12 @@
 import React from 'react';
-import SeatsContainer from '../containers/Seats.container.jsx';
+import Seats from '../containers/Seats.container.jsx';
 import SeatDetails from '../containers/SeatDetails.container.jsx';
 
-const Main = (showSeatDetails) => (
-  <div>
-    <SeatsContainer />
+const Main = ({showSeatDetails}) => {
+  return (<div>
+    <Seats />
     { showSeatDetails ? <SeatDetails /> : ''}
-  </div>
-);
+  </div>)
+};
 
 export default Main;
