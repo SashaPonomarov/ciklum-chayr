@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Seats from '../components/Seats.jsx';
+import FloorPlan from '../components/FloorPlan.jsx';
 import { getSeats, openSeatDetails, closeSeatDetails } from '../actions/seats.actions';
 
 
@@ -19,4 +19,4 @@ const mapDispatchToProps = (dispatch, ownPorps) => ({
     closeSeatDetails: () => dispatch(closeSeatDetails())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Seats);
+export default connect(mapStateToProps, mapDispatchToProps)(FloorPlan);

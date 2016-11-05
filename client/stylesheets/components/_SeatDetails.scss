@@ -3,7 +3,7 @@
   height: 300px;
   position: absolute;
   top: 100px;
-  right: 100px;
+  right: 50px;
   vertical-align: top;
 }
 .seat-details-form {
@@ -14,9 +14,12 @@
   }
 }
 .seat-details-content {
+  display: flex;
   padding: 30px;
 }
 .seat-details-icon {
   transform: rotate(90deg);
-  margin-bottom: 40px;
+}
+.seat-details-save {
+  float: right;
 }

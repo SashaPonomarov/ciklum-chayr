@@ -13,7 +13,7 @@ export default (state = {}, action) => {
             })
 
         case seatsTypes.UPDATE_SEAT:
-            let index = state.seats.findIndex((seat) => {
+            {let index = state.seats.findIndex((seat) => {
                 return seat.seatId === action.seat.seatId;
             })
             return Object.assign({}, state, {
@@ -22,16 +22,27 @@ export default (state = {}, action) => {
                     action.seat,
                     ...state.seats.slice(index + 1),
                 ]
+            })}
+
+        case seatsTypes.DELETE_SEAT:
+            {let index = state.seats.findIndex((seat) => {
+                return seat.seatId === action.seat.seatId;
             })
+            return Object.assign({}, state, {
+                seats: [
+                    ...state.seats.slice(0, index),
+                    ...state.seats.slice(index + 1)
+                ]
+            })}
 
         case seatsTypes.OPEN_SEAT_DETAILS:
-            let currentSeat = state.seats.find((seat) => {
+            {let currentSeat = state.seats.find((seat) => {
                 return seat.seatId === action.seatId;
             })
             return Object.assign({}, state, {
                 currentSeat,
                 showSeatDetails: true
-            })
+            })}
 
         case seatsTypes.CLOSE_SEAT_DETAILS:
             return Object.assign({}, state, {

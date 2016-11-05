@@ -1,10 +1,10 @@
 import React from 'react';
-import Seats from '../containers/Seats.container.jsx';
+import FloorPlan from '../containers/FloorPlan.container.jsx';
 import SeatDetails from '../containers/SeatDetails.container.jsx';
 
 const Main = ({showSeatDetails}) => {
   return (<div>
-    <Seats />
+    <FloorPlan />
     { showSeatDetails ? <SeatDetails /> : ''}
   </div>)
 };

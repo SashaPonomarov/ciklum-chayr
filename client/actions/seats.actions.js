@@ -17,6 +17,11 @@ export const updateSeat = (seat) => ({
     seat: seat
 });
 
+export const deleteSeat = (seat) => ({
+    type: seatsTypes.DELETE_SEAT,
+    seat: seat
+});
+
 export const openSeatDetails = (seatId) => ({
     type: seatsTypes.OPEN_SEAT_DETAILS,
     seatId: seatId
@@ -75,6 +80,31 @@ export const saveSeat = (data) => {
       .then(json => {
           if (json.status === 'success' && json.data && json.data.seat) {
             return dispatch(updateSeat(json.data.seat));
+          }
+          if (json.status === 'error' && json.error) {
+            console.log(json.error);
+          }
+        }
+      ).catch(err => console.log(err))
+  }
+}
+
+export const apiSeatDelete = (data) => {
+  if (!data.seatId) {return;}
+  return dispatch => {
+    return fetch(`${apiURL}/${data.seatId}`, {
+      method: 'DELETE',
+      credentials: 'same-origin',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(json => {
+          if (json.status === 'success' && json.data && json.data.seat) {
+            dispatch(closeSeatDetails());
+            return dispatch(deleteSeat(json.data.seat));
           }
           if (json.status === 'error' && json.error) {
             console.log(json.error);

@@ -65,7 +65,10 @@ export function newFabricCanvas(onSeatClick, closeSeatDetails) {
 
 export function updateFabricSeats(seats, canvas) {
   const seatImgLink = require('../img/seat.svg');
-
+  canvas.getObjects().map((obj) => {
+    canvas.remove;
+  })
+  
   var group = [];
   fabric.loadSVGFromURL(seatImgLink, function(objects, options) {
       var obj = new fabric.Group(group);
@@ -97,32 +100,6 @@ export function updateFabricSeats(seats, canvas) {
           canvas.renderAll();
         });        
       })
-      // for (var i = 1; i <= 10; i++) {
-      //   obj.clone((seat) => {
-      //     seat.set({
-      //       id: i,
-      //       left: Math.random()*1000,
-      //       top: Math.random()*600,
-      //       hasControls: false,
-      //       hasBorders: false,
-      //     });
-
-      //     seat.addWithUpdate(new fabric.Circle({
-      //       id: 'highlight',
-      //       stroke: '#F44336',
-      //       fill: 'transparent',
-      //       strokeWidth: 0,
-      //       strokeDashArray: [12, 5],
-      //       radius: 20,
-      //       left: seat.left-(seat.width/2)-22,
-      //       top: seat.top-(seat.height/2)+3
-      //     }))
-
-      //     canvas.add(seat);
-      //     if (i===10) canvas.setActiveObject(getByID(1));
-      //     canvas.renderAll();
-      //   });
-      // }
     },
     function (element, object) {
       object.id = element.getAttribute('id');

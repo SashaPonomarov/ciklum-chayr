@@ -3,6 +3,8 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
+import SeatDeleteDialog from './SeatDeleteDialog.jsx';
+
 class SeatDetailsForm extends Component {
   constructor(props) {
     super(props);
@@ -10,6 +12,7 @@ class SeatDetailsForm extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.handleSave = this.handleSave.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
     this.state = {
       seatTitleEdit: false,
       seatTitle: this.props.seat.seatTitle,
@@ -24,10 +27,12 @@ class SeatDetailsForm extends Component {
     })
   }
   handleClick(target, content) {
-    this.setState({
-      [target + 'Edit']: true,
-      [target]: content
-    })
+    if (this.props.isAuth) {
+      this.setState({
+        [target + 'Edit']: true,
+        [target]: content
+      })
+    }
   }
   handleBlur(event) {
     this.setState({[event.target.name + 'Edit']: false})
@@ -45,10 +50,13 @@ class SeatDetailsForm extends Component {
     }
     this.props.saveSeat(query);
   }
+  handleDelete() {
+    this.setState({openDelete: true});
+  }
 
   render() {
     console.log('state', this.state)
-    const {seat} = this.props;
+    const {seat, isAuth, apiSeatDelete} = this.props;
     const flatBtnStyle = {textTransform: "initial"};
     const title = ( this.state.seatTitleEdit ? 
           (<TextField
@@ -66,6 +74,12 @@ class SeatDetailsForm extends Component {
             labelStyle={flatBtnStyle} 
             onClick={this.handleClick.bind(this, "seatTitle", this.state.seatTitle)}
           />))
+    const actions = (!isAuth ? (
+        <div>
+          <RaisedButton label="Delete" onClick={this.handleDelete} />
+          <RaisedButton className="seat-details-save" label="Save" onClick={this.handleSave} />
+        </div>) : '');
+
     return (
           <form className="seat-details-form">
             <table>
@@ -80,7 +94,8 @@ class SeatDetailsForm extends Component {
                 </tr>
               </tbody>
             </table>
-            <RaisedButton label="Save" onClick={this.handleSave} />
+            {actions}
+            <SeatDeleteDialog open={this.state.openDelete} apiSeatDelete={apiSeatDelete} seatId={seat.seatId} />
           </form>
     )
   }
