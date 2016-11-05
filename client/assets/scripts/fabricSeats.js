@@ -1,6 +1,6 @@
 export function newFabricCanvas(onSeatClick, closeSeatDetails) {
 
-  const canvas = new fabric.Canvas('floorPlan');
+  const canvas = new fabric.Canvas('floorPlan', {renderOnAddRemove: false});
   const myDataUrl = require('../img/plan.png');
 
   canvas.setBackgroundImage(myDataUrl, canvas.renderAll.bind(canvas));
@@ -65,14 +65,23 @@ export function newFabricCanvas(onSeatClick, closeSeatDetails) {
 
 export function updateFabricSeats(seats, canvas) {
   const seatImgLink = require('../img/seat.svg');
-  canvas.getObjects().map((obj) => {
-    canvas.remove;
-  })
   
+  function ensureRemove(objects) {
+    objects.map((obj) => {
+      canvas.remove(obj);
+    })
+    if (canvas.getObjects().length === 0) {
+      return;
+    }
+    ensureRemove(canvas.getObjects());
+  }
+  ensureRemove(canvas.getObjects());
+
   var group = [];
   fabric.loadSVGFromURL(seatImgLink, function(objects, options) {
       var obj = new fabric.Group(group);
       obj.setAngle(90);
+      console.log('adding updated seats', seats)
       seats.map((item) => {
         if (!item.coordinates) {return;}
         let x = parseInt(item.coordinates.x)

@@ -12,7 +12,6 @@ class SeatDetailsForm extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.handleSave = this.handleSave.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
     this.state = {
       seatTitleEdit: false,
       seatTitle: this.props.seat.seatTitle,
@@ -50,9 +49,6 @@ class SeatDetailsForm extends Component {
     }
     this.props.saveSeat(query);
   }
-  handleDelete() {
-    this.setState({openDelete: true});
-  }
 
   render() {
     console.log('state', this.state)
@@ -74,9 +70,9 @@ class SeatDetailsForm extends Component {
             labelStyle={flatBtnStyle} 
             onClick={this.handleClick.bind(this, "seatTitle", this.state.seatTitle)}
           />))
-    const actions = (!isAuth ? (
+    const actions = (isAuth ? (
         <div>
-          <RaisedButton label="Delete" onClick={this.handleDelete} />
+          <SeatDeleteDialog apiSeatDelete={apiSeatDelete} seatId={seat.seatId} />
           <RaisedButton className="seat-details-save" label="Save" onClick={this.handleSave} />
         </div>) : '');
 
@@ -95,7 +91,6 @@ class SeatDetailsForm extends Component {
               </tbody>
             </table>
             {actions}
-            <SeatDeleteDialog open={this.state.openDelete} apiSeatDelete={apiSeatDelete} seatId={seat.seatId} />
           </form>
     )
   }

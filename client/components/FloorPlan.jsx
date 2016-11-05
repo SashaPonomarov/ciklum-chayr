@@ -16,6 +16,7 @@ class FloorPlan extends Component {
     this.setState({canvas});
   }
   componentWillReceiveProps(next) {
+    console.log('will receive', next.seats)
     if (this.props.seats !== next.seats) {
       updateFabricSeats(next.seats, this.state.canvas)
     }
