@@ -1,4 +1,4 @@
-export function newFabricCanvas(onSeatClick, closeSeatDetails) {
+export function newFabricCanvas(onSeatClick, closeSeatDetails, onSeatMove) {
 
   const canvas = new fabric.Canvas('floorPlan', {renderOnAddRemove: false});
   const myDataUrl = require('../img/plan.png');
@@ -24,9 +24,9 @@ export function newFabricCanvas(onSeatClick, closeSeatDetails) {
 
   canvas.on('object:modified', (options)=>{
     let {id, left, top} = options.target;
-    left = Math.floor(left)
-    top = Math.floor(top)
-    console.log('mod', {id, left, top})
+    left = Math.floor(left) + 35;
+    top = Math.floor(top) + 10;
+    onSeatMove({id, left, top});
   })
 
 
@@ -90,9 +90,9 @@ export function updateFabricSeats(seats, canvas) {
           seat.set({
             id: item.seatId,
             left: x + (x < 30 ? 30 : 0),
-            top: y + (y < 10 ? 10 : 0),
+            top: y + (y < 12 ? 12 : 0),
             hasControls: false,
-            hasBorders: false,
+            hasBorders: true,
           });
           seat.addWithUpdate(new fabric.Circle({
             id: 'highlight',

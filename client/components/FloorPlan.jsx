@@ -10,9 +10,9 @@ class FloorPlan extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
   componentDidMount() {
-    this.props.getSeats();
-    // require('../assets/scripts/fabricSeats.js');
-    const canvas = newFabricCanvas(this.props.onSeatClick, this.props.closeSeatDetails);
+    const {getSeats, onSeatClick, closeSeatDetails, moveSeat} = this.props;
+    getSeats();
+    const canvas = newFabricCanvas(onSeatClick, closeSeatDetails, moveSeat);
     this.setState({canvas});
   }
   componentWillReceiveProps(next) {

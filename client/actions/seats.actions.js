@@ -12,6 +12,15 @@ export const addSeat = (seat) => ({
     seat: seat
 });
 
+export const moveSeat = (seat) => ({
+    type: seatsTypes.MOVE_SEAT,
+    seatId: seat.id,
+    coordinates: {
+      x: seat.left,
+      y: seat.top
+    }
+});
+
 export const updateSeat = (seat) => ({
     type: seatsTypes.UPDATE_SEAT,
     seat: seat

@@ -43,7 +43,10 @@ class SeatDetailsForm extends Component {
   handleSave() {
     let query = {
       body: {
-        seat: {seatTitle: this.state.seatTitle}
+        seat: {
+          seatTitle: this.state.seatTitle,
+          coordinates: this.props.seat.coordinates
+        }
       },
       seatId: this.props.seat.seatId
     }
