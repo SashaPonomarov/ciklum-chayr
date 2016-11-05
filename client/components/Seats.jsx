@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {List, ListItem} from 'material-ui/List';
+import 'fabric';
+import { newFabricCanvas, updateFabricSeats } from '../assets/scripts/fabricSeats.js';
 
 
 class Seats extends Component {
@@ -9,8 +11,15 @@ class Seats extends Component {
   }
   componentDidMount() {
     this.props.getSeats();
+    // require('../assets/scripts/fabricSeats.js');
+    const canvas = newFabricCanvas(this.props.onSeatClick, this.props.closeSeatDetails);
+    this.setState({canvas});
   }
-
+  componentWillReceiveProps(next) {
+    if (this.props.seats !== next.seats) {
+      updateFabricSeats(next.seats, this.state.canvas)
+    }
+  }
   handleClick(seatId) {
     this.props.onSeatClick(seatId);
   }
@@ -27,9 +36,12 @@ class Seats extends Component {
         )
     })
     return (
+      <div>
       <List style={{width: 300}}>
         {seatsList}
       </List>
+      <canvas id="floorPlan" width="1267" height="684"></canvas>
+      </div>
     )
   }
 }

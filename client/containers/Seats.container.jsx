@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import Seats from '../components/Seats.jsx';
-import { openSeatDetails, getSeats } from '../actions/seats.actions';
+import { getSeats, openSeatDetails, closeSeatDetails } from '../actions/seats.actions';
 
 
 const mapStateToProps = (state) => {
@@ -16,6 +16,7 @@ const mapDispatchToProps = (dispatch, ownPorps) => ({
     ...ownPorps,
     getSeats: () => dispatch(getSeats()),
     onSeatClick: (seatId) => dispatch(openSeatDetails(seatId)),
+    closeSeatDetails: () => dispatch(closeSeatDetails())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Seats);
