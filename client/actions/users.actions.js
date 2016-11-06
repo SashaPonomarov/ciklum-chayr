@@ -81,8 +81,12 @@ export const assignSeat = (data) => {
       .then(json => {
           dispatch(selectionModeOff());
           if (json.status === 'success' && json.data) {
+            console.log('received', json.data)
             if (json.data.user) {
               dispatch(updateUser(json.data.user));
+            }
+            if (json.data.prevOccupant) {
+              dispatch(updateUser(json.data.prevOccupant));
             }
             if (json.data.seat) {
               dispatch(updateSeat(json.data.seat));

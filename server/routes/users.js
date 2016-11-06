@@ -65,9 +65,12 @@ router.route('/:userId')
     }
     var free = {userId: "", status: 'free'};
     var userId = req.params.userId;
-    var response = {}
+    var response = {};
+    var prevUserState;
     User.findById(userId).then(function(user) {
+      prevUserState = user;
       if (user && user.seatId) {
+        //if user had previous seat, we need to free it
         return Seat.findByIdAndUpdate(user.seatId, free, {new: true}).then(function(prevSeat) {
           return response.prevSeat = prevSeat;
         })
@@ -78,12 +81,44 @@ router.route('/:userId')
         return response.user = user;
       })
     }).then(function() {
-      var newSeat = response.user.seatId ? 
-                  {userId: response.user._id, status: 'occupied'} : free;
       seatId = response.user.seatId || seatId;
-      return Seat.findByIdAndUpdate(seatId, newSeat, {new: true}).then(function(seat) {
-        return response.seat = seat;
+      return Seat.findById(seatId).then(function(seat) {
+        console.log('seat', seat);
+        if (seat && seat.userId) {
+        //if the seat we are assigning to is occupied, 
+        //we need to remove its occupant or swap him with current user, if he has a seat
+          var seatForPrevOccupant;
+          if (prevUserState.seatId) {
+            seatForPrevOccupant = {seatId: prevUserState.seatId};
+          } 
+          else {
+            seatForPrevOccupant = {seatId: ""};
+          }
+          return User.findByIdAndUpdate(seat.userId, seatForPrevOccupant, {new: true}).then(function(prevOccupant) {
+            return response.prevOccupant = prevOccupant;
+          })
+        }
+        return;
       })
+    }).then(function() {
+        //here we update seat to which we are assigning a new user
+        var newSeat = response.user.seatId ? 
+                  {userId: response.user._id, status: 'occupied'} : free;
+        seatId = response.user.seatId || seatId;
+        return Seat.findByIdAndUpdate(seatId, newSeat, {new: true})
+                .then(function(seat) {
+                  return response.seat = seat;
+                })
+    }).then(function() {
+      if(response.prevOccupant && response.prevOccupant.seatId) {
+        //update seat of newly moved previous occupant
+        var prevOccupantSeat = {userId: response.prevOccupant.userId, status:'occupied'};
+        return Seat.findByIdAndUpdate(response.prevOccupant.seatId, prevOccupantSeat, {new: true})
+          .then(function(seat) {
+              return response.prevSeat = seat;
+            })
+      }
+      return;
     }).then(function() {
       return res.json({status: "success", data: response});
     }).catch(function(err) {
