@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
 import Header from '../components/Header.jsx';
+import Main from '../containers/Main.container.jsx';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {blue50, blue400, blue600, red500} from 'material-ui/styles/colors';
+import {blue400, blue600, red500} from 'material-ui/styles/colors';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
@@ -18,15 +18,11 @@ const muiTheme = getMuiTheme({
 });
 const App = (props) => (
     <MuiThemeProvider muiTheme={muiTheme}>
-        <div id="app-view">
+        <div>
             <Header />
-            {props.children}
+            <Main />
         </div>
     </MuiThemeProvider>
 );
-
-App.propTypes = {
-    children: PropTypes.element,
-};
 
 export default App;
