@@ -43,7 +43,7 @@ export default class SeatDeleteDialog extends Component {
     ];
 
     return (
-      <div>
+      <div style={{display: "inline-block"}}>
         <RaisedButton label="Delete" onClick={this.handleOpen} />
         <Dialog
           title="Confirm delete"

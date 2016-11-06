@@ -8,6 +8,11 @@ export const receiveUsers = (json) => ({
     users: json.data.users
 });
 
+export const receiveSearchResults = (json) => ({
+    type: usersTypes.RECEIVE_SEARCH_RESULTS,
+    users: json.data.users
+});
+
 export const updateUser = (user) => ({
     type: usersTypes.UPDATE_USER,
     user: user
@@ -47,7 +52,7 @@ export const searchUsers = (query) => {
       .then(response => response.json())
       .then(json => {
         console.log('success', json)
-        return dispatch(receiveUsers(json))
+        return dispatch(receiveSearchResults(json))
         }
       ).catch(err => console.log(err))
   }

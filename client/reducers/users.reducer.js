@@ -4,7 +4,12 @@ export default (state = {}, action) => {
   switch (action.type) {
     case usersTypes.RECEIVE_USERS:
       return Object.assign({}, state, {
-        users: action.users,
+        users: action.users
+      })
+
+    case usersTypes.RECEIVE_SEARCH_RESULTS:
+      return Object.assign({}, state, {
+        foundUsers: action.users,
         showUsersList: true
       })
 

@@ -17,6 +17,9 @@ class UsersSearch extends Component {
       searchFilter: ''
     };
   }
+  componentDidMount() {
+    this.props.listUsers();
+  }
   componentDidUpdate() {
     if (!this.props.showUsersList) {return}
     let searchInput = ReactDOM.findDOMNode(this.refs.searchInput).querySelector('input');

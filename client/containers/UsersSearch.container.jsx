@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import UsersSearch from '../components/UsersSearch.jsx';
-import { searchUsers, openUserDetails, userSearchFocus, userSearchBlur } from '../actions/users.actions';
+import { listUsers, searchUsers, openUserDetails, userSearchFocus, userSearchBlur } from '../actions/users.actions';
 
 
 const mapStateToProps = (state) => {
     return {
-        users: state.users.users || [],
+        users: state.users.foundUsers || [],
         showUsersList: state.users.showUsersList
     }
 }
@@ -19,6 +19,7 @@ const mapDispatchToProps = (dispatch, ownPorps) => ({
     onUserSelect: (userId) => dispatch(openUserDetails(userId)),
     onSearchFocus: () => dispatch(userSearchFocus()),
     onSearchBlur: () => dispatch(userSearchBlur()),
+    listUsers: () => dispatch(listUsers()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersSearch);

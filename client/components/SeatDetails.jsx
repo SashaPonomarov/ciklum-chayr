@@ -9,7 +9,7 @@ import {blue500} from 'material-ui/styles/colors';
 
 import SeatDetailsForm from './SeatDetailsForm.jsx';
 
-const SeatDetails = ({seat, isAuth, onClose, saveSeat, apiSeatDelete}) => (
+const SeatDetails = ({seat, user, users, isAuth, onClose, saveSeat, apiSeatDelete, assignSeat}) => (
   <Paper className="seat-details">
     <AppBar
       title="Seat details"
@@ -19,7 +19,8 @@ const SeatDetails = ({seat, isAuth, onClose, saveSeat, apiSeatDelete}) => (
     />
     <div className="seat-details-content">
       <PlayCircleOutline style={{width: 60, height: 60}} color={blue500} className="seat-details-icon"/>
-      <SeatDetailsForm seat={seat} saveSeat={saveSeat} apiSeatDelete={apiSeatDelete} isAuth={isAuth} />
+      <SeatDetailsForm seat={seat} user={user} saveSeat={saveSeat} assignSeat={assignSeat} 
+                       apiSeatDelete={apiSeatDelete} isAuth={isAuth} users={users} />
     </div>
 
   </Paper>

@@ -97,6 +97,7 @@ export function updateFabricSeats(canvas, seats, lockMovement) {
             top: seat.top-(seat.height/2)+3
           }))
           seat.lockMovementX = seat.lockMovementY = lockMovement;
+          if (item.userId) {seat.getObjects()[1].fill = '#90CAF9';}
           canvas.add(seat);
           canvas.renderAll();
         });        
