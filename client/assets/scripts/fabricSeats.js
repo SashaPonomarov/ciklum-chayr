@@ -1,4 +1,4 @@
-export function newFabricCanvas(onSeatClick, closeSeatDetails, onSeatMove) {
+export function newFabricCanvas(onSeatSelect, closeDetails, onSeatMove) {
 
   const canvas = new fabric.Canvas('floorPlan', {renderOnAddRemove: false});
   const myDataUrl = require('../img/plan.png');
@@ -33,7 +33,7 @@ export function newFabricCanvas(onSeatClick, closeSeatDetails, onSeatMove) {
   canvas.on('object:selected', function(options) {
     let clicked = options.target;
     if (clicked.id) {
-      onSeatClick(clicked.id);
+      onSeatSelect(clicked.id);
     }
     if (canvas._selectedSeat) {
       clearSelection(canvas._selectedSeat);
@@ -44,7 +44,7 @@ export function newFabricCanvas(onSeatClick, closeSeatDetails, onSeatMove) {
   })
 
   canvas.on('before:selection:cleared', function(options) {
-    closeSeatDetails();
+    closeDetails();
     clearSelection(options.target);
   });
 
@@ -54,18 +54,11 @@ export function newFabricCanvas(onSeatClick, closeSeatDetails, onSeatMove) {
     canvas.renderAll();
   }
 
-  function getByID(id, collection = canvas) {
-    return collection.getObjects().find((obj) => {
-      return obj.id === id
-    })
-  }
-
   return canvas;
 }
 
-export function updateFabricSeats(seats, canvas) {
+export function updateFabricSeats(canvas, seats, lockMovement) {
   const seatImgLink = require('../img/seat.svg');
-  
   function ensureRemove(objects) {
     objects.map((obj) => {
       canvas.remove(obj);
@@ -81,7 +74,6 @@ export function updateFabricSeats(seats, canvas) {
   fabric.loadSVGFromURL(seatImgLink, function(objects, options) {
       var obj = new fabric.Group(group);
       obj.setAngle(90);
-      console.log('adding updated seats', seats)
       seats.map((item) => {
         if (!item.coordinates) {return;}
         let x = parseInt(item.coordinates.x)
@@ -92,7 +84,7 @@ export function updateFabricSeats(seats, canvas) {
             left: x + (x < 30 ? 30 : 0),
             top: y + (y < 12 ? 12 : 0),
             hasControls: false,
-            hasBorders: true,
+            hasBorders: false,
           });
           seat.addWithUpdate(new fabric.Circle({
             id: 'highlight',
@@ -104,7 +96,7 @@ export function updateFabricSeats(seats, canvas) {
             left: seat.left-(seat.width/2)-22,
             top: seat.top-(seat.height/2)+3
           }))
-
+          seat.lockMovementX = seat.lockMovementY = lockMovement;
           canvas.add(seat);
           canvas.renderAll();
         });        
@@ -116,5 +108,16 @@ export function updateFabricSeats(seats, canvas) {
     }
   )
 }
-    // canvas.deactivateAllWithDispatch().renderAll()
-    // canvas.setActiveObject(getByID('111'));
+
+export function highlightFabricSeat(canvas, seatId) {
+  let object = getByID(seatId, canvas);
+  if (object) {
+    canvas.setActiveObject(object).renderAll();
+  }
+}
+
+function getByID(id, collection) {
+  return collection.getObjects().find((obj) => {
+    return obj.id === id
+  })
+}
