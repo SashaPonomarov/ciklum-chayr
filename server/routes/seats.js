@@ -1,5 +1,6 @@
 const express = require('express');
 const Seat = require('../models/Seat.model');
+const User = require('../models/User.model');
 const router = express.Router();
 
 router.route('/')
@@ -60,6 +61,29 @@ router.route('/:seatId')
         return res.status(500).json({status: "error", error: err});
       }
       res.json({status: "success", data: {seat: seat}});
+    })
+  })
+
+router.route('/free/:seatId')
+  //free a specific seat
+  .put(function(req, res) {
+    var response = {};
+    Seat.findById(req.params.seatId).then(function(seat) {
+      if (seat.userId) {
+        return User.findByIdAndUpdate(seat.userId, {seatId: null}, {new: true}).then(function(user){
+          return response.user = user;
+        })
+      }
+      return;
+    }).then(function(){
+      return Seat.findByIdAndUpdate(req.params.seatId, {userId: null, status: 'free'}, {new: true})
+      .then(function(seat) {
+        return response.seat = seat;
+      })
+    }).then(function(){
+      return res.json({status: "success", data: response});
+    }).catch(function(err){
+      return res.status(500).json({status: "error", error: err});
     })
   })
 

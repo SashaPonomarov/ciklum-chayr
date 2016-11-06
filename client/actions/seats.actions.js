@@ -1,3 +1,4 @@
+import { updateUser } from './users.actions';
 import seatsTypes from './types/seats.types';
 import api from '../config/api';
 const apiURL = api.base + 'seats';
@@ -81,7 +82,6 @@ export const newSeat = () => {
 }
 
 export const saveSeat = (data) => {
-  console.log(data)
   if (!data.seatId) {return;}
   return dispatch => {
     return fetch(`${apiURL}/${data.seatId}`, {
@@ -122,6 +122,36 @@ export const apiSeatDelete = (data) => {
           if (json.status === 'success' && json.data && json.data.seat) {
             dispatch(closeSeatDetails());
             return dispatch(deleteSeat(json.data.seat));
+          }
+          if (json.status === 'error' && json.error) {
+            console.log(json.error);
+          }
+        }
+      ).catch(err => console.log(err))
+  }
+}
+
+export const freeSeat = (data) => {
+  if (!data.seatId) {return;}
+  return dispatch => {
+    return fetch(`${apiURL}/free/${data.seatId}`, {
+      method: 'PUT',
+      credentials: 'same-origin',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(json => {
+          if (json.status === 'success' && json.data) {
+            if (json.data.seat) {
+              dispatch(updateSeat(json.data.seat));
+            }
+            if (json.data.user) {
+              dispatch(updateUser(json.data.user));
+            }
+            return;
           }
           if (json.status === 'error' && json.error) {
             console.log(json.error);

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import SeatDetails from '../components/SeatDetails.jsx';
-import { closeSeatDetails, saveSeat, apiSeatDelete } from '../actions/seats.actions';
+import { closeSeatDetails, saveSeat, apiSeatDelete, freeSeat } from '../actions/seats.actions';
 import { assignSeat } from '../actions/users.actions';
 
 
@@ -22,6 +22,7 @@ const mapDispatchToProps = (dispatch, ownPorps) => ({
     saveSeat: (query) => dispatch(saveSeat(query)),
     apiSeatDelete: (query) => dispatch(apiSeatDelete(query)),
     assignSeat: (query) => dispatch(assignSeat(query)),
+    freeSeat: (query) => dispatch(freeSeat(query)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SeatDetails);

@@ -4,7 +4,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import AutoComplete from 'material-ui/AutoComplete';
 import MenuItem from 'material-ui/MenuItem';
-
+import IconButton from 'material-ui/IconButton';
+import Close from 'material-ui/svg-icons/navigation/close';
 
 import SeatDeleteDialog from './SeatDeleteDialog.jsx';
 
@@ -81,8 +82,7 @@ class SeatDetailsForm extends Component {
   }
 
   render() {
-    console.log('state', this.state)
-    const {seat, user, users = [], isAuth, apiSeatDelete} = this.props;
+    const {seat, user, users = [], isAuth, apiSeatDelete, freeSeat} = this.props;
     const flatBtnStyle = {textTransform: "initial"};
 
     const dataSource = users.map((user) => {
@@ -133,11 +133,17 @@ class SeatDetailsForm extends Component {
             textFieldStyle={style.fields}
             onNewRequest={this.handleOccupant}
           />) :
-          (<FlatButton 
-            label={occupantBtnText} 
-            labelStyle={flatBtnStyle} 
-            onClick={this.handleClick.bind(this, "seatOccupant", this.state.seatOccupant)}
-          />))
+          (<div>
+              <FlatButton 
+                label={occupantBtnText} 
+                labelStyle={flatBtnStyle} 
+                onClick={this.handleClick.bind(this, "seatOccupant", this.state.seatOccupant)}
+              />
+              <IconButton tooltip="Leave selection mode" onClick={freeSeat.bind(this, {seatId: seat.seatId})}>
+                <Close />
+              </IconButton>
+            </div>
+          ))
 
     return (
           <form className="seat-details-form">

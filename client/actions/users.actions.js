@@ -71,7 +71,6 @@ export const assignSeat = (data) => {
       freeSeat: data.user.seatId
     }
   }
-  console.log('body', body)
   return dispatch => {
     return fetch(`${apiURL}/${data.user.userId}`, {
       method: 'PUT',
@@ -86,7 +85,6 @@ export const assignSeat = (data) => {
       .then(json => {
           dispatch(selectionModeOff());
           if (json.status === 'success' && json.data) {
-            console.log('received', json.data)
             if (json.data.user) {
               dispatch(updateUser(json.data.user));
             }

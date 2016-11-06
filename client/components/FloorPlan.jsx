@@ -20,7 +20,6 @@ class FloorPlan extends Component {
     this.setState({canvas});
   }
   componentWillReceiveProps(next) {
-    console.log('will receive', next)
     const {seats, isAuth} = this.props;
     if (seats !== next.seats || isAuth !== next.isAuth) {
       updateFabricSeats(this.state.canvas, next.seats, !next.isAuth);
@@ -51,7 +50,6 @@ class FloorPlan extends Component {
   }
   closeDetails() {
     const {showUserDetails, showSeatDetails, closeUserDetails, closeSeatDetails} = this.props;
-    console.log('closing, showSeatDetails', showSeatDetails, 'showUserDetails', showUserDetails)
     if (showUserDetails) {
       closeUserDetails();
     }

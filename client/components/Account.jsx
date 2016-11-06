@@ -15,9 +15,10 @@ class Account extends Component {
 
   render() {
     const {showLoginForm, isAuth, error, onLoginOpen, onLoginClose, submitAuth, onLogout, onNewSeat} = this.props;
-    const loginBtn = (<RaisedButton label="Log in" onClick={onLoginOpen} key="login" />);
-    const logoutBtn = (<RaisedButton label="Log out" onClick={onLogout} key="logout" />);
-    const newSeatBtn = (<RaisedButton secondary={true} label="New seat" onClick={onNewSeat} key="newseat" />);
+    const loginBtn = (<RaisedButton className="account-button" label="Log in" onClick={onLoginOpen} key="login" />);
+    const logoutBtn = (<RaisedButton className="account-button" label="Log out" onClick={onLogout} key="logout" />);
+    const newSeatBtn = (<RaisedButton className="account-button" 
+                        secondary={true} label="New seat" onClick={onNewSeat} key="newseat" />);
     const buttons = (
         <div className="account-buttons">
           {isAuth ? [newSeatBtn] : ''}

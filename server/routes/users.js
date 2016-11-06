@@ -60,10 +60,8 @@ router.route('/:userId')
     if (!req.body.user) {
       return res.status(400).json({status: "error", error: "Missing new user data"});
     }
-    if (req.body.freeSeat) {
-      var seatId = req.body.freeSeat;
-    }
-    var free = {userId: "", status: 'free'};
+
+    var free = {userId: null, status: 'free'};
     var userId = req.params.userId;
     var response = {};
     var prevUserState;
@@ -81,9 +79,8 @@ router.route('/:userId')
         return response.user = user;
       })
     }).then(function() {
-      seatId = response.user.seatId || seatId;
+      seatId = response.user.seatId;
       return Seat.findById(seatId).then(function(seat) {
-        console.log('seat', seat);
         if (seat && seat.userId) {
         //if the seat we are assigning to is occupied, 
         //we need to remove its occupant or swap him with current user, if he has a seat
@@ -92,7 +89,7 @@ router.route('/:userId')
             seatForPrevOccupant = {seatId: prevUserState.seatId};
           } 
           else {
-            seatForPrevOccupant = {seatId: ""};
+            seatForPrevOccupant = {seatId: null};
           }
           return User.findByIdAndUpdate(seat.userId, seatForPrevOccupant, {new: true}).then(function(prevOccupant) {
             return response.prevOccupant = prevOccupant;
@@ -104,7 +101,7 @@ router.route('/:userId')
         //here we update seat to which we are assigning a new user
         var newSeat = response.user.seatId ? 
                   {userId: response.user._id, status: 'occupied'} : free;
-        seatId = response.user.seatId || seatId;
+        seatId = response.user.seatId;
         return Seat.findByIdAndUpdate(seatId, newSeat, {new: true})
                 .then(function(seat) {
                   return response.seat = seat;

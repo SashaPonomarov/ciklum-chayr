@@ -54,6 +54,7 @@ class UsersSearch extends Component {
       <form className='users-search-form' onSubmit={this.handleSubmit}>
           <TextField
             name="searchInput" 
+            className="search-input" 
             ref="searchInput" 
             autoComplete="off" 
             hintText="Enter name, last name or email"

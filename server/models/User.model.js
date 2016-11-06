@@ -1,8 +1,15 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+function deleteEmpty (v) {
+   if(v==null){
+     return undefined;
+   }
+   return v;
+}
+
 const UserSchema = new Schema({
-  seatId: String,
+  seatId: { type: String, set: deleteEmpty },
   name: String,
   lastName: String,
   email: String
