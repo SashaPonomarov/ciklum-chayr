@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import FloorPlan from '../components/FloorPlan.jsx';
-import { getSeats, openSeatDetails, closeSeatDetails, moveSeat } from '../actions/seats.actions';
-import { closeUserDetails } from '../actions/users.actions';
+import { getSeats, openSeatDetails, closeSeatDetails, moveSeat,
+         selectionModeOff } from '../actions/seats.actions';
+import { closeUserDetails, assignSeat } from '../actions/users.actions';
 
 
 const mapStateToProps = (state) => {
@@ -18,7 +19,8 @@ const mapStateToProps = (state) => {
         currentUser: state.users.currentUser,
         showUserDetails: state.users.showUserDetails,
         showSeatDetails: state.seats.showSeatDetails,
-        isAuth: state.account.isAuth
+        isAuth: state.account.isAuth,
+        selectionMode: state.seats.selectionMode,
     }
 }
 
@@ -27,7 +29,9 @@ const mapDispatchToProps = (dispatch) => ({
     onSeatClick: (seatId) => dispatch(openSeatDetails(seatId)),
     closeSeatDetails: () => dispatch(closeSeatDetails()),
     closeUserDetails: () => dispatch(closeUserDetails()),
-    moveSeat: (seat) => dispatch(moveSeat(seat))
+    moveSeat: (seat) => dispatch(moveSeat(seat)),
+    selectionModeOff: () => dispatch(selectionModeOff()),
+    assignSeat: (params) => dispatch(assignSeat(params)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(FloorPlan);

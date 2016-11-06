@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
-import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
 
 
 class UserDetailsForm extends Component {
   render() {
-    const {user, seat, isAuth} = this.props;
+    const {user, seat, isAuth, selectionModeOn} = this.props;
+    const assignBtn = isAuth ? (
+      <RaisedButton 
+        className="user-details-assign" 
+        label="Assign" 
+        onClick={selectionModeOn} 
+      />) : '';
+    const seatTitle = <span>{seat ? seat.seatTitle : 'No seat assigned'}</span>;
     return (
       <div className="user-details-form">
         <table>
@@ -26,7 +31,8 @@ class UserDetailsForm extends Component {
             <tr>
               <td>Seat:</td>
               <td className="user-details-value">
-                { seat ? seat.seatTitle : 'No seat'}
+                {seatTitle}
+                {assignBtn}
               </td>
             </tr>
           </tbody>

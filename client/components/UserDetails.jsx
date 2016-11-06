@@ -9,7 +9,7 @@ import {blue500} from 'material-ui/styles/colors';
 
 import UserDetailsForm from './UserDetailsForm.jsx';
 
-const UserDetails = ({user, seat, isAuth, onClose}) => (
+const UserDetails = ({user, seat, isAuth, onClose, selectionModeOn}) => (
   <Paper className="user-details">
     <AppBar
       title="Person details"
@@ -19,7 +19,7 @@ const UserDetails = ({user, seat, isAuth, onClose}) => (
     />
     <div className="user-details-content">
       <Person style={{width: 60, height: 60}} color={blue500} className="user-details-icon"/>
-      <UserDetailsForm user={user} seat={seat} isAuth={isAuth} />
+      <UserDetailsForm user={user} seat={seat} isAuth={isAuth} selectionModeOn={selectionModeOn} />
     </div>
 
   </Paper>

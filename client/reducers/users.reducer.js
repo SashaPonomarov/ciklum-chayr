@@ -8,6 +8,18 @@ export default (state = {}, action) => {
         showUsersList: true
       })
 
+    case usersTypes.UPDATE_USER:
+      {let index = state.users.findIndex((user) => {
+        return user.userId === action.user.userId;
+      })
+      return Object.assign({}, state, {
+        users: [
+          ...state.users.slice(0, index),
+          action.user,
+          ...state.users.slice(index + 1),
+        ]
+      })}
+
     case usersTypes.OPEN_USER_DETAILS:
       {
         let currentUser = state.users.find(user => user.userId === action.userId)

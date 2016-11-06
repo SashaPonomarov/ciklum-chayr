@@ -61,6 +61,15 @@ export default (state = {}, action) => {
         showSeatDetails: false
       })
 
+    case seatsTypes.SELECTION_MODE_ON:
+      return Object.assign({}, state, {
+        selectionMode: true
+      })
+
+    case seatsTypes.SELECTION_MODE_OFF:
+      return Object.assign({}, state, {
+        selectionMode: false
+      })
 
     default:
       return state;

@@ -1,5 +1,6 @@
 const express = require('express');
 const User = require('../models/User.model');
+const Seat = require('../models/Seat.model');
 const router = express.Router();
 
 router.route('/search')
@@ -59,11 +60,34 @@ router.route('/:userId')
     if (!req.body.user) {
       return res.status(400).json({status: "error", error: "Missing new user data"});
     }
-    User.findByIdAndUpdate(req.params.userId, req.body.user, {new: true}, function(err, user) {
-      if (err) {
-        return res.status(500).json({status: "error", error: err});
+    if (req.body.freeSeat) {
+      var seatId = req.body.freeSeat;
+    }
+    var free = {userId: "", status: 'free'};
+    var userId = req.params.userId;
+    var response = {}
+    User.findById(userId).then(function(user) {
+      if (user && user.seatId) {
+        return Seat.findByIdAndUpdate(user.seatId, free, {new: true}).then(function(prevSeat) {
+          return response.prevSeat = prevSeat;
+        })
       }
-      res.json({status: "success", data: {user: user}});
+      return;
+    }).then(function() {
+      return User.findByIdAndUpdate(userId, req.body.user, {new: true}).then(function(user) {
+        return response.user = user;
+      })
+    }).then(function() {
+      var newSeat = response.user.seatId ? 
+                  {userId: response.user._id, status: 'occupied'} : free;
+      seatId = response.user.seatId || seatId;
+      return Seat.findByIdAndUpdate(seatId, newSeat, {new: true}).then(function(seat) {
+        return response.seat = seat;
+      })
+    }).then(function() {
+      return res.json({status: "success", data: response});
+    }).catch(function(err) {
+      return res.status(500).json({status: "error", error: err});
     })
   })
 

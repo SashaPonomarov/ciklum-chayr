@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import {List, ListItem} from 'material-ui/List';
+import IconButton from 'material-ui/IconButton';
+import Close from 'material-ui/svg-icons/navigation/close';
+
 import 'fabric';
 import { newFabricCanvas, updateFabricSeats, highlightFabricSeat } from '../assets/scripts/fabricSeats.js';
 
@@ -30,8 +33,14 @@ class FloorPlan extends Component {
     }
   }
   onSeatSelect(seatId) {
-    const {onSeatClick, highlightSeat, showUserDetails, currentUser, closeUserDetails} = this.props;
+    const {selectionMode, onSeatClick, highlightSeat, showUserDetails, currentUser, 
+            closeUserDetails, assignSeat} = this.props;
     let seatOpen = !highlightSeat;
+    if (selectionMode) {
+      let params = {seatId, user: currentUser};
+      assignSeat(params);
+      return;
+    }
     if (showUserDetails && (currentUser.seatId !== seatId)) {
       closeUserDetails();
       seatOpen = true;
@@ -52,8 +61,17 @@ class FloorPlan extends Component {
   }
 
   render() {
+    const {selectionMode, selectionModeOff} = this.props;
+    const banner = selectionMode ? (
+                    <div className="selection-mode-banner">
+                      Selection mode
+                      <IconButton tooltip="Leave selection mode" onClick={selectionModeOff}>
+                        <Close />
+                      </IconButton>
+                    </div>) : '';
     return (
       <div className="floor-plan">
+        {banner}
         <canvas id="floorPlan" width="1267" height="684"></canvas>
       </div>
     )

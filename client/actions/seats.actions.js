@@ -40,6 +40,14 @@ export const closeSeatDetails = () => ({
     type: seatsTypes.CLOSE_SEAT_DETAILS,
 });
 
+export const selectionModeOn = () => ({
+    type: seatsTypes.SELECTION_MODE_ON,
+});
+
+export const selectionModeOff = () => ({
+    type: seatsTypes.SELECTION_MODE_OFF,
+});
+
 export const getSeats = () => {
   return dispatch => {
     return fetch(apiURL)
