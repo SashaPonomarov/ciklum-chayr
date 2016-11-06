@@ -8,6 +8,7 @@ import Main from '../components/Main.page.jsx';
 const mapStateToProps = (state) => {
     return {
         showSeatDetails: state.seats.showSeatDetails || false,
+        showUserDetails: state.users.showUserDetails || false,
     }
 }
 

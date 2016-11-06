@@ -8,7 +8,7 @@ const UsersList = ({users = [], onUserSelect}) => {
         <ListItem 
           key={user.userId} 
           primaryText={`${user.name} ${user.lastName}`} 
-          onMouseDown={onUserSelect}
+          onMouseDown={onUserSelect.bind(this, user.userId)}
         />
       )
   })

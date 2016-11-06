@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import UsersSearch from '../components/UsersSearch.jsx';
-import { searchUsers, selectUser, userSearchFocus, userSearchBlur } from '../actions/users.actions';
+import { searchUsers, openUserDetails, userSearchFocus, userSearchBlur } from '../actions/users.actions';
 
 
 const mapStateToProps = (state) => {
@@ -16,7 +16,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownPorps) => ({
     ...ownPorps,
     onSearch: (query) => dispatch(searchUsers(query)),
-    onUserSelect: () => dispatch(selectUser()),
+    onUserSelect: (userId) => dispatch(openUserDetails(userId)),
     onSearchFocus: () => dispatch(userSearchFocus()),
     onSearchBlur: () => dispatch(userSearchBlur()),
 })

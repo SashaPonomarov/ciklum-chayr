@@ -7,8 +7,13 @@ export const receiveUsers = (json) => ({
     users: json.data.users
 });
 
-export const selectUser = () => ({
-    type: usersTypes.SELECT_USEER,
+export const openUserDetails = (userId) => ({
+    type: usersTypes.OPEN_USER_DETAILS,
+    userId: userId
+});
+
+export const closeUserDetails = () => ({
+    type: usersTypes.CLOSE_USER_DETAILS,
 });
 
 export const userSearchFocus = () => ({

@@ -1,0 +1,22 @@
+.user-details {
+  width: 400px;
+  height: 300px;
+  position: absolute;
+  top: 100px;
+  right: 50px;
+  vertical-align: top;
+}
+.user-details-form {
+  width: 280px;
+  display: inline-block;
+  td {
+    padding: 10px 10px 20px;
+  }
+}
+.user-details-value {
+  word-break: break-word;
+}
+.user-details-content {
+  display: flex;
+  padding: 30px;
+}
